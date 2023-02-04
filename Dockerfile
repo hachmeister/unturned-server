@@ -1,4 +1,4 @@
-FROM debian:bookworm-slim
+FROM debian:bullseye-slim
 
 # Insert Steam prompt answers
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -7,7 +7,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 
 # Install steamcmd command
 ARG DEBIAN_FRONTEND=noninteractive
-RUN sed -i 's/: main/: main non-free/' /etc/apt/sources.list.d/debian.sources \
+RUN sed -i 's/ main/ main non-free/' /etc/apt/sources.list \
  && dpkg --add-architecture i386 \
  && apt-get update -y \
  && apt-get install -y --no-install-recommends ca-certificates locales steamcmd \
